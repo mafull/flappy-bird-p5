@@ -4,6 +4,7 @@ const FPS = 60;
 
 const BIRD_SIZE = 30;
 
+const OBSTACLE_GAP = 150;
 const OBSTACLE_WIDTH = 40;
 const OBSTACLE_SPACING = 400;
 
@@ -21,13 +22,10 @@ function setup() {
 	frameRate(FPS);
 	
 	bird = new Bird();
-
-	obstacles[0] = new Obstacle();
 }
 
 function draw() {
 	background(51);
-	stroke(255);
 
 	bird.update();
 	bird.show();
@@ -96,9 +94,9 @@ function Bird() {
 
 function Obstacle() {
 	this.x = CANVAS_WIDTH;
-	this.y = CANVAS_HEIGHT;
 	this.width = OBSTACLE_WIDTH;
 	this.height = 100 + (Math.random() * 400);
+	this.gap = OBSTACLE_GAP;
 
 	this.update = function() {
 		this.x -= X_SPEED;
@@ -106,7 +104,8 @@ function Obstacle() {
 
 	this.show = function() {
 		fill(255);
-		rect(this.x, this.y, this.width, -this.height);
+		rect(this.x, CANVAS_HEIGHT, this.width, -this.height);
+		rect(this.x, 0, this.width, (CANVAS_HEIGHT - this.height - this.gap));
 	}
 
 	this.isOnScreen = function() {
