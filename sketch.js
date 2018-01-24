@@ -74,6 +74,11 @@ function Bird() {
 		this.vy += (this.ay * (1 / FPS));
 		this.x += this.vx;
 		this.y -= this.vy; // Note minus sice y0 is at the top
+
+		// Hit the floor
+		if((this.y + (this.size / 2)) > CANVAS_HEIGHT) {
+			this.y = CANVAS_HEIGHT - this.size/2;
+		}
 	}
 
 	this.show = function() {
