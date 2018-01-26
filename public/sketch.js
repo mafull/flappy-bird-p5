@@ -2,14 +2,14 @@ const CANVAS_WIDTH = 650;
 const CANVAS_HEIGHT = 650;
 const FPS = 60;
 
-const BIRD_RADIUS = 25;
+const P_BIRD_RADIUS = 0.05;
 
-const OBSTACLE_GAP = 200;
-const OBSTACLE_WIDTH = 40;
-const OBSTACLE_SPACING = 400;
+const P_OBSTACLE_GAP = 0.3;
+const P_OBSTACLE_WIDTH = 0.08;
+const P_OBSTACLE_SPACING = 400;
 
 const X_SPEED = 5;
-const GRAVITY = 20;
+const P_GRAVITY = 2.5;
 const FLAP_SPEED = 8;
 
 const GameState = {
@@ -38,7 +38,12 @@ var sketch = function(p) {
 		p.createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT);
 		p.frameRate(FPS);
 		
-		bird = new Bird();
+		bird = new Bird(
+			CANVAS_WIDTH, CANVAS_HEIGHT,
+			P_BIRD_RADIUS,
+			P_GRAVITY,
+			"#FFF",
+			FLAP_SPEED);
 
 		gameState = GameState.RUNNING;
 	}
@@ -52,8 +57,13 @@ var sketch = function(p) {
 				break;
 
 			case GameState.RUNNING:
-				if((distance % OBSTACLE_SPACING) < 1) {
-					obstacles.push(new Obstacle());
+				if((distance % P_OBSTACLE_SPACING) < 1) {
+					obstacles.push(new Obstacle(
+						CANVAS_WIDTH, CANVAS_HEIGHT,
+						P_OBSTACLE_WIDTH,
+						P_OBSTACLE_GAP,
+						"#FFF",
+						X_SPEED));
 				}
 
 				if(!obstacles[0].isOnScreen()) {
@@ -68,7 +78,7 @@ var sketch = function(p) {
 					obstacle.draw(p);
 
 					if(obstacle.collided(bird)) {
-						gameState = GameState.FINISHED;
+						//gameState = GameState.FINISHED;
 						
 					}
 				});

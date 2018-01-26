@@ -1,12 +1,15 @@
-function Bird() {
-	this.x = CANVAS_WIDTH / 2;
-	this.y = CANVAS_HEIGHT / 2;
+function Bird(maxX, maxY, pRadius, pGravity, colour, flapSpeed) {
+	this.maxX = maxX;
+	this.maxY = maxY;
+	this.x = maxX / 2;
+	this.y = maxY / 2;
 	this.vx = 0;
 	this.vy = 0;
 	this.ax = 0;
-	this.ay = -GRAVITY;//-9.81;
-	this.radius = BIRD_RADIUS;
-	this.colour = "#FFF";
+	this.ay = pGravity * -9.81;
+	this.radius = pRadius * maxX;
+	this.colour = colour;
+	this.flapSpeed = flapSpeed;
 
 	this.update = function() {
 		// Velocity
@@ -18,8 +21,8 @@ function Bird() {
 		this.y -= this.vy; // Note minus sice y0 is at the top
 
 		// Hit the floor
-		if((this.y + this.radius) > CANVAS_HEIGHT) {
-			this.y = CANVAS_HEIGHT - this.radius;
+		if((this.y + this.radius) > this.maxY) {
+			this.y = this.maxY - this.radius;
 		}
 	}
 
@@ -29,6 +32,6 @@ function Bird() {
 	}
 
 	this.flap = function() {
-		this.vy = FLAP_SPEED;
+		this.vy = this.flapSpeed;
 	}
 }

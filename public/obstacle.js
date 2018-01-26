@@ -1,14 +1,17 @@
 
-function Obstacle() {
-	this.x = CANVAS_WIDTH;
-	this.y = CANVAS_HEIGHT;
-	this.width = OBSTACLE_WIDTH;
-	this.height = 100 + (Math.random() * 400);
-	this.gap = OBSTACLE_GAP;
-	this.colour = "#FFF";
+function Obstacle(maxX, maxY, pWidth, pGap, colour, vx) {
+	this.maxX = maxX;
+	this.maxY = maxY;
+	this.x = maxX;
+	this.y = maxY;
+	this.width = pWidth * maxX;
+	this.height = (0.05 * maxY) + (Math.random() * ((0.9 - pGap) * maxY));
+	this.gap = pGap * maxY;
+	this.colour = colour;
+	this.vx = vx;
 
 	this.update = function() {
-		this.x -= X_SPEED;
+		this.x -= this.vx;
 	}
 
 	this.draw = function(p) {
@@ -27,7 +30,7 @@ function Obstacle() {
 				this.x, this.y - this.height, this.width, this.height) ||
 			circleRectCollision(
 				bird.x, bird.y, bird.radius,
-				this.x, 0, this.width, CANVAS_HEIGHT - (this.height + this.gap))) {
+				this.x, 0, this.width, this.maxY - (this.height + this.gap))) {
 			this.colour = "#F00";
 			return true;
 		}
