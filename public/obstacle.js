@@ -11,10 +11,10 @@ function Obstacle() {
 		this.x -= X_SPEED;
 	}
 
-	this.show = function() {
-		fill(this.colour);
-		rect(this.x, this.y, this.width, -this.height);
-		rect(this.x, 0, this.width, (this.y - this.height - this.gap));
+	this.draw = function(p) {
+		p.fill(this.colour);
+		p.rect(this.x, this.y, this.width, -this.height);
+		p.rect(this.x, 0, this.width, (this.y - this.height - this.gap));
 	}
 
 	this.isOnScreen = function() {

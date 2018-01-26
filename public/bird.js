@@ -9,8 +9,11 @@ function Bird() {
 	this.colour = "#FFF";
 
 	this.update = function() {
+		// Velocity
 		this.vx += (this.ax * (1 / FPS));
 		this.vy += (this.ay * (1 / FPS));
+
+		// Position
 		this.x += this.vx;
 		this.y -= this.vy; // Note minus sice y0 is at the top
 
@@ -20,9 +23,9 @@ function Bird() {
 		}
 	}
 
-	this.show = function() {
-		fill(this.colour);
-		ellipse(this.x, this.y, (this.radius * 2));
+	this.draw = function(p) {
+		p.fill(this.colour);
+		p.ellipse(this.x, this.y, (this.radius * 2));
 	}
 
 	this.flap = function() {
