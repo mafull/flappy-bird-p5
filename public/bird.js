@@ -24,6 +24,12 @@ function Bird(maxX, maxY, pRadius, pGravity, colour, flapSpeed) {
 		if((this.y + this.radius) > this.maxY) {
 			this.y = this.maxY - this.radius;
 		}
+
+		// Hit the ceiling
+		if((this.y - this.radius) < 0) {
+			this.y =  + this.radius;
+			this.vy = 0;
+		}
 	}
 
 	this.draw = function(p) {
